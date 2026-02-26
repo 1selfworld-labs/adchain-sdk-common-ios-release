@@ -1,0 +1,62 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 6.2.3 effective-5.10 (swiftlang-6.2.3.3.21 clang-1700.6.3.2)
+// swift-module-flags: -target arm64-apple-ios14.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -enable-experimental-feature DebugDescriptionMacro -module-name AdchainCommon
+// swift-module-flags-ignorable:  -formal-cxx-interoperability-mode=off -interface-compiler-version 6.2.3
+import Foundation
+import Swift
+import UIKit
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+@objc public protocol AdchainSspBridgeProtocol {
+  @objc static func initialize(_ config: [Swift.String : Any])
+  @objc static func loadRewardedVideo(_ placementId: Swift.String, callback: any AdchainCommon.SspAdCallback)
+  @objc static func loadInterstitial(_ placementId: Swift.String, callback: any AdchainCommon.SspAdCallback)
+  @objc static func showRewardedVideo(_ viewController: UIKit.UIViewController, placementId: Swift.String, callback: any AdchainCommon.SspAdCallback)
+  @objc static func showInterstitial(_ viewController: UIKit.UIViewController, placementId: Swift.String, callback: any AdchainCommon.SspAdCallback)
+  @objc static func isAdLoaded(_ placementId: Swift.String) -> Swift.Bool
+  @objc static func isInitialized() -> Swift.Bool
+  @objc static func getVersion() -> Swift.String
+  @objc static func destroy()
+}
+@objc public protocol SspAdCallback {
+  @objc optional func onAdLoaded()
+  @objc optional func onAdFailedToLoad(_ error: AdchainCommon.SspAdError)
+  @objc optional func onAdShown()
+  @objc optional func onAdClosed()
+  @objc optional func onAdClicked()
+  @objc optional func onRewarded(rewardType: Swift.String, rewardAmount: Swift.Int)
+  @objc optional func onError(_ error: AdchainCommon.SspAdError)
+}
+@_inheritsConvenienceInitializers @objc public class SspAdError : Foundation.NSError {
+  @objc public static let codeNotInitialized: Swift.Int
+  @objc public static let codeAdNotLoaded: Swift.Int
+  @objc public static let codeNoAdAvailable: Swift.Int
+  @objc public static let codeShowFailed: Swift.Int
+  @objc public static let codeSspNotAvailable: Swift.Int
+  @objc convenience public init(code: Swift.Int, message: Swift.String)
+  @objc public var message: Swift.String {
+    @objc get
+  }
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc override dynamic public init(domain: Swift.String, code: Swift.Int, userInfo dict: [Swift.String : Any]? = nil)
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc required dynamic public init?(coder: Foundation.NSCoder)
+  #endif
+  @objc deinit
+}
+@objc public enum SspAdType : Swift.Int {
+  case rewardedVideo = 0
+  case interstitial = 1
+  #if compiler(>=5.3) && $NonescapableTypes
+  public init?(rawValue: Swift.Int)
+  #endif
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+extension AdchainCommon.SspAdType : Swift.Equatable {}
+extension AdchainCommon.SspAdType : Swift.Hashable {}
+extension AdchainCommon.SspAdType : Swift.RawRepresentable {}
