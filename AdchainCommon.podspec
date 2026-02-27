@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name         = "AdchainCommon"
-  spec.version      = "0.2.2"
+  spec.version      = "0.2.5"
   spec.summary      = "AdChain Common iOS - Shared types for AdChain SSP SDK"
   spec.description  = <<-DESC
                        Shared types and protocols for AdChain SSP SDK:
