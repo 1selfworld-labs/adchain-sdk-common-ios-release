@@ -7,7 +7,6 @@ let package = Package(
     products: [
         .library(
             name: "AdchainCommon",
-            type: .dynamic,
             targets: ["AdchainCommon"]
         ),
     ],
